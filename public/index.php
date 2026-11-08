@@ -7,8 +7,11 @@
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../includes/auth.php';
 
-// Enforce authentication
-requireAuth('login.php');
+// If not authenticated, display the main public landing website
+if (!isLoggedIn()) {
+    require_once __DIR__ . '/home.php';
+    exit;
+}
 
 $currentUser = getCurrentUser();
 $initials = getUserInitials($currentUser['full_name']);
